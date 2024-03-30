@@ -11,14 +11,18 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
+
+import com.desafiopicpay.desafiopicpay.dtos.UserDTO;
 
 @Entity(name = "users")
 @Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
     @Id
@@ -27,7 +31,7 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true)  
     private String document;
 
     @Column(unique = true)
@@ -39,5 +43,15 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDTO data){
+        this.email = data.email();
+        this.firstName = data.firstName();
+        this.document = data.document();
+        this.lastName = data.lastName();
+        this.password = data.password();
+        this.balance = data.balance();
+        this.userType = data.userType();
+    }
 
 }
